@@ -82,22 +82,40 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </Link>
       </PageHero>
 
-      <section className="mx-auto w-full max-w-3xl px-5 py-16 sm:px-8 lg:py-20">
-        {post.labels.length ? (
-          <div className="mb-8 flex flex-wrap gap-2">
-            {post.labels.map((label) => (
-              <span
-                key={label}
-                className="rounded-md border border-slate-200 bg-white px-2 py-1 text-xs font-semibold text-slate-600"
-              >
-                {label}
-              </span>
-            ))}
+      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
+        <div className="mb-8 rounded-lg border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/6 sm:p-6">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">
+                Post details
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Published {formatDate(post.published)}
+              </p>
+            </div>
+            <Link
+              href="/resources/blogs"
+              className="inline-flex h-10 w-fit items-center rounded-md bg-slate-950 px-4 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              Back to blog
+            </Link>
           </div>
-        ) : null}
+          {post.labels.length ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {post.labels.map((label) => (
+                <span
+                  key={label}
+                  className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-600"
+                >
+                  {label}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </div>
 
         <article
-          className="blog-content rounded-lg border border-slate-200 bg-white p-5 text-base leading-7 text-slate-700 shadow-xl shadow-slate-900/6 sm:p-8"
+          className="blog-content w-full rounded-lg border border-slate-200 bg-white p-5 text-base leading-7 text-slate-700 shadow-xl shadow-slate-900/6 sm:p-8 lg:p-10"
           dangerouslySetInnerHTML={{ __html: post.content ?? "" }}
         />
       </section>

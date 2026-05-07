@@ -46,38 +46,41 @@ export default async function BlogsPage() {
               body="When Cindral publishes posts in Blogger, they will appear here."
             />
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
               {posts.map((post) => (
-                <article
+                <Link
                   key={post.id}
-                  className="flex min-h-72 flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/6"
+                  href={`/resources/blogs/${post.id}`}
+                  className="group flex min-h-[22rem] flex-col rounded-lg border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/6 transition hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-cyan-950/8 sm:p-7"
                 >
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">
-                    {formatDate(post.published)}
-                  </p>
-                  <h2 className="mt-3 text-2xl font-semibold">{post.title}</h2>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">
-                    {post.excerpt || "Read the latest update from Cindral."}
-                  </p>
-                  {post.labels.length ? (
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {post.labels.slice(0, 3).map((label) => (
-                        <span
-                          key={label}
-                          className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-600"
-                        >
-                          {label}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
-                  <Link
-                    href={`/resources/blogs/${post.id}`}
-                    className="mt-auto inline-flex h-10 w-fit items-center rounded-md bg-slate-950 px-4 text-sm font-semibold text-white transition hover:bg-slate-800"
-                  >
-                    Read post
-                  </Link>
-                </article>
+                  <article className="flex h-full flex-col">
+                    <div className="mb-6 h-32 rounded-md border border-slate-200 bg-[linear-gradient(135deg,#168db8,#67e8f9_50%,#a78bfa)]" />
+                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">
+                      {formatDate(post.published)}
+                    </p>
+                    <h2 className="mt-3 text-3xl font-semibold leading-tight text-slate-950">
+                      {post.title}
+                    </h2>
+                    <p className="mt-4 text-base leading-7 text-slate-600">
+                      {post.excerpt || "Read the latest update from Cindral."}
+                    </p>
+                    {post.labels.length ? (
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        {post.labels.slice(0, 3).map((label) => (
+                          <span
+                            key={label}
+                            className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-600"
+                          >
+                            {label}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+                    <span className="mt-auto inline-flex h-10 w-fit items-center rounded-md bg-slate-950 px-4 text-sm font-semibold text-white transition group-hover:bg-slate-800">
+                      Read post
+                    </span>
+                  </article>
+                </Link>
               ))}
             </div>
           )}

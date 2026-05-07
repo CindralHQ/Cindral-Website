@@ -12,6 +12,19 @@ const navItems = [
   { href: "/contact", label: "Contact" },
 ];
 
+const resourceLinks = [
+  {
+    href: "/resources/brand-assets",
+    label: "Brand Assets",
+    description: "Logo, colors, typography, and UI rules",
+  },
+  {
+    href: "/resources/blogs",
+    label: "Blog",
+    description: "Notes and updates from Cindral",
+  },
+];
+
 export function SiteHeader({ inverted = false }: { inverted?: boolean }) {
   const [open, setOpen] = useState(false);
 
@@ -40,15 +53,36 @@ export function SiteHeader({ inverted = false }: { inverted?: boolean }) {
           }`}
         >
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`transition ${
-                inverted ? "hover:text-white" : "hover:text-slate-950"
-              }`}
-            >
-              {item.label}
-            </Link>
+            <div key={item.href} className="group relative">
+              <Link
+                href={item.href}
+                className={`transition ${
+                  inverted ? "hover:text-white" : "hover:text-slate-950"
+                }`}
+              >
+                {item.label}
+              </Link>
+              {item.href === "/resources" ? (
+                <div className="invisible absolute left-1/2 top-full z-30 w-72 -translate-x-1/2 pt-4 opacity-0 transition duration-150 ease-out group-hover:visible group-hover:opacity-100">
+                  <div className="rounded-lg border border-slate-200 bg-white p-2 text-slate-950 shadow-2xl shadow-slate-950/14">
+                    {resourceLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="block rounded-md px-4 py-3 transition hover:bg-slate-50"
+                      >
+                        <span className="block text-sm font-semibold">
+                          {link.label}
+                        </span>
+                        <span className="mt-1 block text-xs leading-5 text-slate-500">
+                          {link.description}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
           ))}
         </nav>
 
@@ -118,14 +152,29 @@ export function SiteHeader({ inverted = false }: { inverted?: boolean }) {
           </div>
           <nav aria-label="Mobile navigation" className="mt-8 grid gap-2">
             {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-3 text-base font-semibold text-slate-950 transition hover:bg-slate-50"
-              >
-                {item.label}
-              </Link>
+              <div key={item.href}>
+                <Link
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-md px-3 py-3 text-base font-semibold text-slate-950 transition hover:bg-slate-50"
+                >
+                  {item.label}
+                </Link>
+                {item.href === "/resources" ? (
+                  <div className="ml-3 grid border-l border-slate-200 pl-3">
+                    {resourceLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             ))}
           </nav>
           <Link
