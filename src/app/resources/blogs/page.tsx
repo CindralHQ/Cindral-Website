@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BlogScrollTop } from "@/components/blog-scroll-top";
 import { PageHero } from "@/components/page-hero";
 import { getBloggerPosts } from "@/lib/blogger";
 
@@ -13,6 +14,7 @@ export default async function BlogsPage() {
 
   return (
     <main className="min-h-dvh bg-slate-50 text-slate-950">
+      <BlogScrollTop />
       <PageHero
         eyebrow="Resources / Blog"
         title="Notes and updates from Cindral."

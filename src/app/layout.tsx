@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { RouteTransitionController } from "@/components/route-transition-controller";
 import "./globals.css";
@@ -42,6 +43,7 @@ export default function RootLayout({
         ) : null}
         <RouteTransitionController />
         {children}
+        <CookieConsentBanner />
       </body>
     </html>
   );

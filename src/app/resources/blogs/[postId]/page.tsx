@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BlogScrollTop } from "@/components/blog-scroll-top";
 import { PageHero } from "@/components/page-hero";
 import { getBloggerPost } from "@/lib/blogger";
 
@@ -35,6 +36,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!configured) {
     return (
       <main className="min-h-dvh bg-slate-50 text-slate-950">
+        <BlogScrollTop />
         <PageHero
           eyebrow="Resources / Blog"
           title="Blog setup required."
@@ -53,6 +55,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (error) {
     return (
       <main className="min-h-dvh bg-slate-50 text-slate-950">
+        <BlogScrollTop />
         <PageHero
           eyebrow="Resources / Blog"
           title="Post unavailable."
@@ -69,6 +72,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main className="min-h-dvh bg-slate-50 text-slate-950">
+      <BlogScrollTop />
       <PageHero
         eyebrow={formatDate(post.published)}
         title={post.title}

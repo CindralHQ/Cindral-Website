@@ -1,8 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
+
+export const cookieConsentStorageKey = "cindral_cookie_consent_v1";
+export const cookieConsentEventName = "cindral-cookie-consent";
 
 declare global {
   interface Window {
@@ -17,8 +20,11 @@ export function GoogleAnalytics({
   measurementId: string;
 }) {
   const pathname = usePathname();
+  const analyticsAllowed =
+    useCookieConsentChoice() === "accepted";
 
   useEffect(() => {
+    if (!analyticsAllowed) return;
     if (!window.gtag) return;
 
     window.gtag("event", "page_view", {
@@ -27,7 +33,9 @@ export function GoogleAnalytics({
       page_title: document.title,
       send_to: measurementId,
     });
-  }, [measurementId, pathname]);
+  }, [analyticsAllowed, measurementId, pathname]);
+
+  if (!analyticsAllowed) return null;
 
   return (
     <>
@@ -45,4 +53,30 @@ export function GoogleAnalytics({
       </Script>
     </>
   );
+}
+
+export function useCookieConsentChoice() {
+  return useSyncExternalStore(
+    subscribeToCookieConsent,
+    getCookieConsentSnapshot,
+    getCookieConsentServerSnapshot,
+  );
+}
+
+function subscribeToCookieConsent(onStoreChange: () => void) {
+  window.addEventListener(cookieConsentEventName, onStoreChange);
+  window.addEventListener("storage", onStoreChange);
+
+  return () => {
+    window.removeEventListener(cookieConsentEventName, onStoreChange);
+    window.removeEventListener("storage", onStoreChange);
+  };
+}
+
+function getCookieConsentSnapshot() {
+  return window.localStorage.getItem(cookieConsentStorageKey);
+}
+
+function getCookieConsentServerSnapshot() {
+  return null;
 }

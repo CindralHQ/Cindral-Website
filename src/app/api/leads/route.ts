@@ -7,6 +7,7 @@ type LeadPayload = {
   phone?: unknown;
   email?: unknown;
   preferredMode?: unknown;
+  purpose?: unknown;
   additionalNotes?: unknown;
 };
 
@@ -50,6 +51,7 @@ function normalizeLead(payload: LeadPayload):
   const phone = stringValue(payload.phone);
   const email = stringValue(payload.email);
   const preferredMode = stringValue(payload.preferredMode);
+  const purpose = stringValue(payload.purpose);
   const additionalNotes = stringValue(payload.additionalNotes);
 
   if (!name || !organizationName || !phone || !email || !preferredMode) {
@@ -83,6 +85,7 @@ function normalizeLead(payload: LeadPayload):
       phone,
       email,
       preferredMode,
+      purpose,
       additionalNotes,
     },
   };
@@ -119,7 +122,7 @@ async function appendLeadToSheet(lead: Record<string, string>) {
 
   await sheets.spreadsheets.values.append({
     spreadsheetId,
-    range: `${safeSheetName}!A:G`,
+    range: `${safeSheetName}!A:H`,
     valueInputOption: "USER_ENTERED",
     requestBody: {
       values: [
@@ -130,6 +133,7 @@ async function appendLeadToSheet(lead: Record<string, string>) {
           lead.phone,
           lead.email,
           lead.preferredMode,
+          lead.purpose,
           lead.additionalNotes,
         ],
       ],
@@ -170,7 +174,7 @@ async function ensureSheetExists(
 
   await sheets.spreadsheets.values.update({
     spreadsheetId,
-    range: `${quoteSheetName(sheetName)}!A1:G1`,
+    range: `${quoteSheetName(sheetName)}!A1:H1`,
     valueInputOption: "USER_ENTERED",
     requestBody: {
       values: [
@@ -181,6 +185,7 @@ async function ensureSheetExists(
           "Phone",
           "Email",
           "Preferred Mode",
+          "Purpose",
           "Additional Notes",
         ],
       ],
@@ -193,12 +198,42 @@ function quoteSheetName(sheetName: string) {
 }
 
 function formatSubmittedDate(date: Date) {
-  return new Intl.DateTimeFormat("en-IN", {
+  const time = new Intl.DateTimeFormat("en-IN", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "Asia/Kolkata",
+  })
+    .format(date)
+    .toUpperCase();
+
+  const day = new Intl.DateTimeFormat("en-IN", {
     day: "numeric",
+    timeZone: "Asia/Kolkata",
+  }).format(date);
+
+  const monthYear = new Intl.DateTimeFormat("en-IN", {
     month: "long",
     year: "numeric",
     timeZone: "Asia/Kolkata",
   }).format(date);
+
+  return `${time} - ${day}${ordinalSuffix(Number(day))} ${monthYear}`;
+}
+
+function ordinalSuffix(day: number) {
+  if (day >= 11 && day <= 13) return "th";
+
+  switch (day % 10) {
+    case 1:
+      return "st";
+    case 2:
+      return "nd";
+    case 3:
+      return "rd";
+    default:
+      return "th";
+  }
 }
 
 function requireEnv(name: string) {

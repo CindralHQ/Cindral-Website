@@ -98,8 +98,8 @@ export function ContactPurposeForm() {
       phone: formData.get("phone"),
       email: formData.get("email"),
       preferredMode: formData.get("preferredMode"),
+      purpose: purpose.label,
       additionalNotes: [
-        `Purpose: ${purpose.label}`,
         interests ? `Category: ${interests}` : "",
         notes ? `Notes: ${notes}` : "",
       ]

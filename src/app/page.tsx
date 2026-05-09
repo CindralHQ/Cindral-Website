@@ -52,7 +52,8 @@ const spatialHighlights = [
 const featuredClients = [
   {
     name: "YGPT",
-    status: "Featured client",
+    status: "Youth For Global Peace and Transformation",
+    href: "https://ygpt.cindral.org",
   },
   {
     name: "More soon",
@@ -184,12 +185,11 @@ export default function Home() {
                   Featured clients
                 </p>
                 <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
-                  Logos we can point to.
+                  Organizations we’ve worked with
                 </h2>
               </div>
               <p className="max-w-2xl text-sm leading-6 text-slate-600 lg:justify-self-end">
-                YGPT is our first featured client here. More client logos will
-                be added as soon as they are ready for public display.
+                A growing list of organizations that have collaborated with Cindral across software, infrastructure, and spatial experiences.
               </p>
             </div>
 
@@ -199,6 +199,7 @@ export default function Home() {
                   key={`${client.name}-${index}`}
                   name={client.name}
                   status={client.status}
+                  href={client.href}
                   muted={index > 0}
                 />
               ))}
@@ -328,20 +329,19 @@ function OfferingVisual({ visual }: { visual: string }) {
 function ClientLogoCard({
   name,
   status,
+  href,
   muted,
 }: {
   name: string;
   status: string;
+  href?: string;
   muted: boolean;
 }) {
-  return (
-    <article
-      className={
-        muted
-          ? "rounded-lg border border-dashed border-slate-300 bg-white/60 p-5"
-          : "rounded-lg border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/6"
-      }
-    >
+  const cardClassName = muted
+    ? "rounded-lg border border-dashed border-slate-300 bg-white/60 p-5"
+    : "rounded-lg border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/6";
+  const cardContent = (
+    <>
       <div className="flex h-28 items-center justify-center rounded-md border border-slate-200 bg-slate-50">
         <span
           className={
@@ -354,6 +354,24 @@ function ClientLogoCard({
         </span>
       </div>
       <p className="mt-4 text-sm font-semibold text-slate-950">{status}</p>
-    </article>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Visit ${name}`}
+        className={`${cardClassName} block transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-950/10 focus:outline-none focus:ring-4 focus:ring-cyan-500/20`}
+      >
+        {cardContent}
+      </a>
+    );
+  }
+
+  return (
+    <article className={cardClassName}>{cardContent}</article>
   );
 }
