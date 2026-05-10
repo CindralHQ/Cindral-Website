@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
 
@@ -20,12 +20,25 @@ export function GoogleAnalytics({
   measurementId: string;
 }) {
   const pathname = usePathname();
-  const analyticsAllowed =
-    useCookieConsentChoice() === "accepted";
+  const consentChoice = useCookieConsentChoice();
+  const analyticsAllowed = consentChoice === "accepted";
+  const initializedMeasurementId = useRef<string | null>(null);
 
   useEffect(() => {
     if (!analyticsAllowed) return;
-    if (!window.gtag) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag =
+      window.gtag ||
+      function gtag(...args: unknown[]) {
+        window.dataLayer?.push(args);
+      };
+
+    if (initializedMeasurementId.current !== measurementId) {
+      window.gtag("js", new Date());
+      window.gtag("config", measurementId, { send_page_view: false });
+      initializedMeasurementId.current = measurementId;
+    }
 
     window.gtag("event", "page_view", {
       page_location: window.location.href,
@@ -38,20 +51,10 @@ export function GoogleAnalytics({
   if (!analyticsAllowed) return null;
 
   return (
-    <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${measurementId}', { send_page_view: false });
-        `}
-      </Script>
-    </>
+    <Script
+      src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
+      strategy="afterInteractive"
+    />
   );
 }
 
@@ -74,9 +77,15 @@ function subscribeToCookieConsent(onStoreChange: () => void) {
 }
 
 function getCookieConsentSnapshot() {
-  return window.localStorage.getItem(cookieConsentStorageKey);
+  return normalizeCookieConsentChoice(
+    window.localStorage.getItem(cookieConsentStorageKey),
+  );
 }
 
 function getCookieConsentServerSnapshot() {
   return null;
+}
+
+function normalizeCookieConsentChoice(value: string | null) {
+  return value === "accepted" || value === "declined" ? value : null;
 }

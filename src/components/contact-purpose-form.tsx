@@ -218,7 +218,6 @@ export function ContactPurposeForm() {
               type="tel"
               autoComplete="tel"
               inputMode="tel"
-              pattern="[0-9+()\\-\\s]{7,20}"
               title="Enter a valid phone number using digits, spaces, +, -, or brackets only."
               required
             />
@@ -320,7 +319,6 @@ function Field({
   type = "text",
   autoComplete,
   inputMode,
-  pattern,
   title,
   required = false,
 }: {
@@ -337,7 +335,6 @@ function Field({
     | "none"
     | "numeric"
     | "decimal";
-  pattern?: string;
   title?: string;
   required?: boolean;
 }) {
@@ -352,7 +349,6 @@ function Field({
         type={type}
         autoComplete={autoComplete}
         inputMode={inputMode}
-        pattern={pattern}
         title={title}
         required={required}
         className="h-12 w-full rounded-md border border-slate-300/80 bg-white px-3 text-base text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/15"
