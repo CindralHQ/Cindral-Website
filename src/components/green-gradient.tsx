@@ -24,19 +24,23 @@ export type GrainSettings = {
 };
 
 const defaultSettings: GrainSettings = {
-  color1L: 0.88,
-  color1C: 0.274,
-  color1H: 218,
-  color2L: 0.68,
-  color2C: 0.209,
-  color2H: 262,
-  color3L: 0.65,
-  color3C: 0.09384057971014494,
-  color3H: 323.4782608695652,
+    color1L: 0.75,
+    color1C: 0.18,
+    color1H: 165,
+
+    color2L: 0.45,
+    color2C: 0.08,
+    color2H: 170,
+
+    color3L: 0.88,
+    color3C: 0.12,
+    color3H: 135,
+
   speed: 0.4,
-  blobSize: 0.5,
+  blobSize: 0.3,
   softness: 0.75,
   complexity: 3,
+
   grainStyle: "ordered",
   grainIntensity: 0.04,
   halftoneSize: 3,
@@ -183,7 +187,7 @@ const fragmentShader = `
   }
 `;
 
-export function GrainyBackground({
+export function GreenBackground({
   fixed = true,
   className = "",
 }: {
@@ -226,7 +230,7 @@ export function GrainyBackground({
   return (
     <canvas
       ref={canvasRef}
-      className={`${fixed ? "fixed" : "absolute"} inset-0 h-full w-full ${className}`}
+      className={`absolute inset-0 z-0 w-full h-full ${className}`}
       aria-hidden="true"
     />
   );
@@ -311,8 +315,8 @@ function createRenderer(canvas: HTMLCanvasElement) {
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     canvas.style.width = `${width}px`;

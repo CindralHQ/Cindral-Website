@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
-import { GoogleAnalytics } from "@/components/google-analytics";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { RouteTransitionController } from "@/components/route-transition-controller";
 import "./globals.css";
 
@@ -25,7 +25,11 @@ export const metadata: Metadata = {
   },
   description:
     "Cindral builds precise digital presence, communication assets, and useful systems.",
+    icons: {
+    icon: "/cindral-logo.png",
+  },
 };
+
 
 export default function RootLayout({
   children,
@@ -38,13 +42,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full`}
     >
       <body className="min-h-full antialiased">
-        {gaMeasurementId ? (
-          <GoogleAnalytics measurementId={gaMeasurementId} />
-        ) : null}
         <RouteTransitionController />
         {children}
         <CookieConsentBanner />
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </html>
   );
 }

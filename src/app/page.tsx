@@ -1,38 +1,56 @@
 import Link from "next/link";
+import { GreenBackground } from "@/components/green-gradient";
 import { GrainyBackground } from "@/components/grainy-background";
+
+
 import { SiteHeader } from "@/components/site-header";
 
 const offerings = [
   {
-    label: "Software",
+    label: "Computer Software",
     title: "Websites, interfaces, and useful systems.",
     body: "We build digital surfaces that feel considered from the first visit and practical after repeated use.",
     examples: [
-      "Websites and web experiences",
-      "Client-facing interfaces",
-      "Internal tools and workflows",
+      "Website Design & Development",
+      "Business Applications",
+      "Internal Tools & Dashboards",
+      "Process Automation",
     ],
     visual: "software",
   },
   {
-    label: "Infrastructure",
-    title: "Foundations for dependable operation.",
-    body: "We shape the technical and operational layers that let software run, evolve, and stay maintainable.",
+    label: "Computer Hardware",
+    title: "Reliable technology infrastructure.",
+    body: "We supply, install, maintain, and upgrade computer systems and IT hardware to keep organizations running smoothly and securely.",
     examples: [
-      "System foundations",
-      "Deployment-ready structure",
-      "Operational clarity",
+      "Hardware Procurement",
+      "Workstations & Laptops",
+      "Network Equipment",
+      "Annual Maintenance & Support",
     ],
-    visual: "infrastructure",
+    visual: "Hardware",
   },
   {
-    label: "Spatial experiences",
-    title: "Digital experiences shaped around place.",
-    body: "We create spatial concepts where physical context and digital interaction work together.",
+    label: "CCTV & SECURITY SYSTEMS",
+    title: "Intelligent surveillance and security solutions.",
+    body: "From small offices to large facilities, we provide end-to-end CCTV installation, monitoring, maintenance, and security infrastructure services.",
     examples: [
-      "Art gallery experiences",
-      "Vehicle preview environments",
-      "Place-aware digital journeys",
+      "CCTV Installation",
+      "Surveillance System Design",
+      "Maintenance & AMC",
+      "Remote Monitoring Solutions",
+    ],
+    visual: "security",
+  },
+  {
+    label: "Extended Reality (XR)",
+    title: "Immersive experiences that connect people and technology.",
+    body: "We create interactive experiences using Extended Reality (AR, VR, and Mixed Reality) for education, exhibitions, training, marketing, and customer engagement.",
+    examples: [
+      "Augmented Reality (AR)",
+      "Virtual Reality (VR)",
+      "Mixed Reality Experiences",
+      "Interactive Installations",
     ],
     visual: "spatial",
   },
@@ -111,13 +129,11 @@ export default function Home() {
                   What we offer
                 </p>
                 <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
-                  Three connected areas of work.
+                  Our connected areas of work.
                 </h2>
               </div>
               <p className="max-w-2xl text-sm leading-6 text-slate-600 lg:justify-self-end">
-                Cindral moves between digital products, the systems that
-                support them, and spatial experiences that make technology feel
-                connected to a real environment.
+                Cindral combines software engineering, IT infrastructure, security technology, and extended reality to deliver integrated solutions for businesses, institutions, and public-facing environments.
               </p>
             </div>
 
@@ -129,51 +145,34 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-slate-950 text-white">
-          <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10 lg:py-20">
+        <section className="relative overflow-hidden bg-slate-950 text-white ">
+          <GreenBackground />
+          <div className="z-10 relative mx-auto grid w-full max-w-6xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10 lg:py-20 items-center ">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/80">
-                Spatial experiences
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-100/80">
+                CINDRAL ENERGY
               </p>
               <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
-                Built for previews, places, and presence.
+                Powering a sustainable future.
               </h2>
-              <p className="mt-4 max-w-xl text-sm leading-6 text-white/64">
-                Spatial work gives digital products a sense of environment:
-                the visitor can move, inspect, compare, and understand context
-                without the interface becoming louder than the subject.
-              </p>
+              <p className="mt-4 max-w-xl text-[15px] leading-6 text-white">
+                Cindral Energy helps homes, businesses, and institutions adopt cleaner, more efficient energy solutions through solar systems, wind energy, consulting, and sustainable infrastructure.              </p>
+              <Link
+                href="https://energy.cindral.org"
+                className="inline-flex h-10 mt-5 items-center justify-center rounded-md bg-white px-5 text-base font-semibold text-slate-950 shadow-lg text-[15px] shadow-slate-900/12 transition hover:bg-slate-50 active:scale-[0.99]"
+              >
+                Visit Website
+              </Link>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              {spatialHighlights.map((highlight) => (
-                <article
-                  key={highlight.title}
-                  className="rounded-lg border border-white/12 bg-white/[0.07] p-5 shadow-2xl shadow-slate-950/20 backdrop-blur-md"
-                >
-                  <div className="mb-5 h-32 overflow-hidden rounded-md border border-white/10 bg-[#071827]">
-                    <div className="grid h-full grid-cols-4 gap-px p-3 opacity-90">
-                      {Array.from({ length: 24 }).map((_, index) => (
-                        <span
-                          key={index}
-                          className={
-                            index % 5 === 0
-                              ? "bg-cyan-300/70"
-                              : index % 7 === 0
-                                ? "bg-violet-300/65"
-                                : "bg-white/12"
-                          }
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-semibold">{highlight.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-white/64">
-                    {highlight.body}
-                  </p>
-                </article>
-              ))}
-            </div>
+            <div className="grid gap-4 sm:grid-cols-2 relative">
+<div className="col-span-1 sm:col-span-2">
+    <img
+      src="/CindralEnergyBanner.png"
+      alt="Cindral Energy"
+      className="w-full h-auto rounded-lg border border-slate-200 bg-slate-50 block"
+    />
+  </div>            </div>
           </div>
         </section>
 
@@ -251,8 +250,7 @@ function OfferingCard({
 }) {
   return (
     <article className="flex min-h-full flex-col rounded-lg border border-slate-200 bg-slate-50 p-5 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:shadow-slate-900/8">
-      <OfferingVisual visual={visual} />
-      <p className="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">
+      <p className="mt-1 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">
         {label}
       </p>
       <h3 className="mt-3 text-2xl font-semibold">{title}</h3>
@@ -271,60 +269,7 @@ function OfferingCard({
   );
 }
 
-function OfferingVisual({ visual }: { visual: string }) {
-  const isSoftware = visual === "software";
-  const isInfrastructure = visual === "infrastructure";
 
-  return (
-    <div className="h-36 rounded-md border border-slate-200 bg-white p-3">
-      {isSoftware ? (
-        <div className="grid h-full grid-rows-[1fr_0.8fr] gap-2">
-          <div className="rounded bg-slate-950" />
-          <div className="grid grid-cols-3 gap-2">
-            <span className="rounded bg-cyan-500/70" />
-            <span className="rounded bg-slate-200" />
-            <span className="rounded bg-violet-400/70" />
-          </div>
-        </div>
-      ) : isInfrastructure ? (
-        <div className="grid h-full grid-cols-3 gap-2">
-          {[0, 1, 2].map((column) => (
-            <div key={column} className="grid gap-2">
-              {[0, 1, 2].map((row) => (
-                <span
-                  key={`${column}-${row}`}
-                  className={
-                    row === column
-                      ? "rounded bg-cyan-500/70"
-                      : "rounded bg-slate-200"
-                  }
-                />
-              ))}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="relative h-full overflow-hidden rounded bg-slate-950">
-          <div className="absolute inset-4 grid grid-cols-5 gap-1 opacity-80">
-            {Array.from({ length: 25 }).map((_, index) => (
-              <span
-                key={index}
-                className={
-                  index % 6 === 0
-                    ? "bg-cyan-300/80"
-                    : index % 8 === 0
-                      ? "bg-violet-300/80"
-                      : "bg-white/12"
-                }
-              />
-            ))}
-          </div>
-          <div className="absolute inset-x-5 bottom-5 h-8 rounded border border-white/20 bg-white/12 backdrop-blur-sm" />
-        </div>
-      )}
-    </div>
-  );
-}
 
 function ClientLogoCard({
   name,

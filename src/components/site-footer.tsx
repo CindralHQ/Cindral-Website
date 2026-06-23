@@ -76,7 +76,7 @@ export function SiteFooter() {
 
       <div className="border-t border-slate-200">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-5 py-5 text-xs font-medium text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
-          <p>© {new Date().getFullYear()} Cindral. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Cindral OPC Pvt Ltd. All rights reserved.</p>
           <Link href="/contact" className="transition hover:text-slate-950">
             Start a conversation
           </Link>

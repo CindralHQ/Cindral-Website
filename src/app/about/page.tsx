@@ -69,23 +69,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-slate-950 text-white">
-        <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-10 lg:py-20">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/58">
-              Direction
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
-              A brand system first, then the pages grow from it.
-            </h2>
-          </div>
-          <p className="max-w-2xl text-base leading-7 text-white/68">
-            The site is being built from the same visual language as the
-            business card: calm contrast, glass-like surfaces, measured spacing,
-            and the animated grain field as the first identity signal.
-          </p>
-        </div>
-      </section>
     </main>
   );
 }
