@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s | Cindral",
   },
   description:
-    "Cindral builds precise digital presence, communication assets, and useful systems.",
+    "Cindral is a multidisciplinary organization offering technology, renewable energy, consulting, and strategic services that drive innovation and sustainable development.",
     icons: {
     icon: "/cindral-logo.png",
   },
