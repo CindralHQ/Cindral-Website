@@ -56,16 +56,6 @@ const offerings = [
   },
 ];
 
-const spatialHighlights = [
-  {
-    title: "Art Gallery",
-    body: "Guided digital layers for exhibitions, collections, room context, and visitor movement.",
-  },
-  {
-    title: "Vehicle Preview",
-    body: "Focused preview environments for form, detail, variants, and configuration before a physical viewing.",
-  },
-];
 
 const featuredClients = [
   {
@@ -74,12 +64,14 @@ const featuredClients = [
     href: "https://ygpt.cindral.org",
   },
   {
-    name: "More soon",
-    status: "Client logo placeholder",
+    name: "DWAI",
+    status: "Discover Who Am I",
+    href: "https://dwai.cindral.org",
   },
   {
-    name: "More soon",
-    status: "Client logo placeholder",
+    name: "MAYBU",
+    status: "Maybe You",
+    href: "https://cindral.org/contact",
   },
 ];
 
@@ -282,19 +274,12 @@ function ClientLogoCard({
   href?: string;
   muted: boolean;
 }) {
-  const cardClassName = muted
-    ? "rounded-lg border border-dashed border-slate-300 bg-white/60 p-5"
-    : "rounded-lg border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/6";
+  const cardClassName = "rounded-lg border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/6";
   const cardContent = (
     <>
       <div className="flex h-28 items-center justify-center rounded-md border border-slate-200 bg-slate-50">
         <span
-          className={
-            muted
-              ? "text-xl font-semibold text-slate-300"
-              : "text-4xl font-semibold tracking-[0.08em] text-slate-950"
-          }
-        >
+          className="text-4xl font-semibold tracking-[0.08em] text-slate-950">
           {name}
         </span>
       </div>
